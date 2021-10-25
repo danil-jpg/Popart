@@ -12,18 +12,16 @@ const modals = () =>{
         trigger.forEach((i) => {
             i.addEventListener("click" , (e)=>{
                 if(e.target){
-
                     e.preventDefault();
                 }
 
                 btnPressed = true;
                 if(destroy == true){
-                    i.remove();
-                }else{
+                    i.style.display = "none";
+                }else if(destroy == false){
                     let gift = document.querySelector(".fixed-gift"),
-                         giftRight = +getComputedStyle(gift).right.replace(/px/ , "");
-                         gift.style.right = (giftRight + scroll) + "px";
-                    console.log(gift,giftRight,gift.style.right);
+                        giftRight = +getComputedStyle(gift).right.replace(/px/ , "");
+                        gift.style.right = (giftRight + scroll) + "px";
                 }
 
                 windows.forEach( item =>{
@@ -59,7 +57,7 @@ const modals = () =>{
                 modal.style.display = "none";
                 document.body.style.overflow = "";
                 let gift = document.querySelector(".fixed-gift");
-                gift.style.right = "2rem"
+                gift.style.right = "2rem";
             }
         });
 
@@ -95,7 +93,6 @@ const modals = () =>{
                     let  scroll = calcScroll();
                     document.body.style.overflow = "hidden";
                     document.body.style.marginRight = `${scroll}px`;
-                    console.log(scroll + "px");
                 }
 // ! возвращает тру для каждого фолс
             },time)

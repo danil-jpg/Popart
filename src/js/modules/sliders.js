@@ -49,7 +49,7 @@ const sliders = (slides , dir , prev, next ,time) => {
             console.log(slideIndex);
         });
     } catch(e){
-        console.log("52")
+
     }
     function activateAnimation(){
         if(dir === "vertical"){
