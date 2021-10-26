@@ -41,7 +41,7 @@ const forms = () =>{
 
                 let formData = new FormData(item),
                      api;
-                item.closest(".popup-design") ? api = path.designer : path.question;
+                item.closest(".popup-design") ? api = path.designer :api = path.question;
                 // если попар тру,мы присваеваем апи путь,если нет то questijon
 
                 let statusMessage = document.createElement("div");
@@ -63,13 +63,14 @@ const forms = () =>{
 
                 statusMessage.appendChild(textMessage);
 
-                postData(api , formData)
+                postData(api, formData)
                 .then(res =>{
                     console.log(res);
                     statusImg.setAttribute("src" , message.ok);
                     textMessage.textContent = message.success;
                 })
                 .catch(()=>{
+                    console.log(1)
                     textMessage.textContent = message.fail;
                     statusImg.setAttribute("src", message.fail);
                 })
