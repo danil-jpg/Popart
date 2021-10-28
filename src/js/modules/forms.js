@@ -2,7 +2,8 @@
 
 const forms = () =>{
         const form = document.querySelectorAll("form"),
-                  inputs = document.querySelectorAll("input");
+                  inputs = document.querySelectorAll("input"),
+                  upload = document.querySelectorAll("[name=upload]");
 
             // checkNumInputs("input[name='user_phone']");
 
@@ -31,9 +32,25 @@ const forms = () =>{
 
         const clearInputs = ()=>{
             inputs.forEach(i =>{
-                i.valuse = "";
+                i.value = "";
             });
+            upload.forEach(item => {
+                item.previousElementSibling.textContent = "Файл не выбран"
+            })
         }
+
+        upload.forEach(item => {
+            item.addEventListener("input", () => {
+
+                    let dots;
+                    let arr =  item.files[0].name.split(".")
+                   arr[0].length > 6 ? dots = "..." : dots ="."
+                    const name = arr[0].substring(0 , 6) + dots +   arr[1]
+                    item.previousElementSibling.textContent = name;
+                    // previousElementSibling содержит предыдущий элемент, находящийся в этом же родителе.
+                    console.log(name);
+            })
+        });
 
         form.forEach(item =>{
             item.addEventListener("submit" , (e)=>{
@@ -41,7 +58,7 @@ const forms = () =>{
 
                 let formData = new FormData(item),
                      api;
-                item.closest(".popup-design") ? api = path.designer :api = path.question;
+                item.closest(".popup-design") || item.classList.contains("calc_form") ?   api = path.designer :api = path.question;
                 // если попар тру,мы присваеваем апи путь,если нет то questijon
 
                 let statusMessage = document.createElement("div");
@@ -78,6 +95,9 @@ const forms = () =>{
                     clearInputs();
                     setTimeout(()=>{
                         statusMessage.remove();
+                        item.style.display = "block";
+                        item.classList.remove("fadeOutUp");
+                        item.classList.add("fadeInUp");
                     },3000)
                 })
             })
