@@ -1819,6 +1819,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 
 
+ // import mask from "./modules/mask"
 
 window.addEventListener("DOMContentLoaded", () => {
   "use strict";
@@ -1826,7 +1827,7 @@ window.addEventListener("DOMContentLoaded", () => {
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])(".feedback-slider-item", "horizontal", ".main-prev-btn", ".main-next-btn", 4000);
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])(".main-slider-item", "vertical", "", "", 4000);
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
-  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])(); // mask("[name = 'phone']");
 });
 
 /***/ }),
@@ -2059,7 +2060,58 @@ const modals = () => {
   openByScroll(".fixed-gift");
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (modals);
+/* harmony default export */ __webpack_exports__["default"] = (modals); //* eslint-disable no-mixed-spaces-and-tabs */
+// const mask = (selector) => {
+// 	let setCursorPostion = (pos , elem) => {
+// 		elem.focus();
+// 		if(elem.setSelectionRange){
+// 			elem.setSelectionRange(pos, pos);
+// 		} else if(elem.createTextRange){
+// 			let range = elem.createTextRange();
+// 		// Это полифил для старых браузеров
+// 			range.collapse(true);
+// 			range.moveEnd("character" , pos);
+// 			range.moveStart("character", pos);
+// 			range.select();
+// 		}
+// 	};
+// 	function createMask(event){
+// 		let matrix = "+7 (___) ___ __ __",
+// 			 i = 0,
+// 			 def = matrix.replace(/\D/gi , ""),
+// 			 val = this.value.replace(/\D/g , "");
+// 			// val = document.querySelector(selector).valu.replace(...) - тоже самое.
+// 		if(def.length >= val.length){
+// 			val = def;
+// 		}
+// // This.value - то значение ,которое пользователь ввел прямо сейчас
+// 		this.value = matrix.replace(/./g , function(a){
+// 			// В этом случае переменная а - каждый перебераемый символ
+// 			return /[_\d]/.test(a)  && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+// 			// в 18 стр ВЕСЬКЛАССЦИФР.ПРАВДА/ЛОЖЬ(КАЖДАЯСимвол)
+// 			// И І Больше чем ,то что ввел пользователь
+// 		});
+// 		// console.log(this.value, this)
+// 		if(event.type === "blur"){
+// 			if(this.value.length == 2){
+// 				// console.log(this.value)
+// 				this.value = ""
+// 			}
+// 		}else{
+// 			setCursorPostion(this.value.length, this)
+// 			// console.log(this.value, this)
+// 		}
+//  	}
+// 	 let inputs = document.querySelectorAll(selector);
+// 	 inputs.forEach(input => {
+// 		 input.addEventListener("input" , createMask);
+// 		 input.addEventListener("blur" , createMask);
+// 		 input.addEventListener("focus" , createMask);
+// 	 })
+// 	//  В общем,тут this будет инпут см 50ые строки .Почему так - не знаю,когда-нибудь разберусь,возможно,forEach создаёт свой контекст вызова и вместо
+// 	// глобал будет Инпут
+// }
+// export default mask;
 
 /***/ }),
 
