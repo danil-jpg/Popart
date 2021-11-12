@@ -1817,9 +1817,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 /* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+/* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
 
 
  // import mask from "./modules/mask"
+
 
 window.addEventListener("DOMContentLoaded", () => {
   "use strict";
@@ -1827,7 +1829,8 @@ window.addEventListener("DOMContentLoaded", () => {
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])(".feedback-slider-item", "horizontal", ".main-prev-btn", ".main-next-btn", 4000);
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])(".main-slider-item", "vertical", "", "", 4000);
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
-  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])(); // mask("[name = 'phone']");
+  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_3__["default"])(".button-styles", ".styles-2"); // mask("[name = 'phone']");
 });
 
 /***/ }),
@@ -2112,6 +2115,49 @@ const modals = () => {
 // 	// глобал будет Инпут
 // }
 // export default mask;
+
+/***/ }),
+
+/***/ "./src/js/modules/showMoreStyles.js":
+/*!******************************************!*\
+  !*** ./src/js/modules/showMoreStyles.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// const moreBlocks = () => {
+// 	const btn = document.querySelector(".button-styles"),
+// 			styleBlock = document.querySelectorAll(".styles-2"),
+// 			styles =document.querySelectorAll(".styles-block");
+// 			btn.addEventListener("click" , () => {
+// 				btn.style.display = "none";
+// 				styleBlock.forEach(item => {
+// 					item.classList.remove("hidden-lg", "hidden-md" ,"hidden-sm" ,"hidden-xs");
+// 				})
+// 				styles.forEach(item => {
+// 					item.style.display = "inline-block";
+// 				});
+// 			})
+// }
+// export default moreBlocks; - мой вариант реализации
+const showMoreStyles = (trigger, styles) => {
+  const cards = document.querySelectorAll(styles),
+        btn = document.querySelector(trigger);
+  cards.forEach(card => {
+    card.classList.add("animated", "fadeInUp");
+  });
+  btn.addEventListener("click", () => {
+    cards.forEach(card => {
+      card.classList.remove("hidden-lg", "hidden-md", "hidden-sm", "hidden-xs");
+      card.classList.add("col-sm-3", "col-sm-offset-0", "col-xs-10", "col-xs-offset-1");
+    });
+    btn.style.display = "none";
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (showMoreStyles);
 
 /***/ }),
 
