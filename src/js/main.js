@@ -3,6 +3,7 @@ import sliders from "./modules/sliders";
 import forms from "./modules/forms";
 // import mask from "./modules/mask"
 import showMoreStyles from "./modules/showMoreStyles"
+import calculator from "./modules/calculator";
 
 window.addEventListener("DOMContentLoaded" , () =>{
     "use strict";
@@ -10,6 +11,7 @@ window.addEventListener("DOMContentLoaded" , () =>{
     sliders(".main-slider-item", "vertical", "","",4000 );
     modals();
     forms();
-    showMoreStyles(".button-styles" , "#styles .row")
+    showMoreStyles(".button-styles" , "#styles .row");
+    calculator("#size","#material" , "#options", ".promocode" , ".calc-price"," .calc_form")
     // mask("[name = 'phone']");
 })
