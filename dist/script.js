@@ -1818,9 +1818,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
+/* harmony import */ var _modules_calculator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/calculator */ "./src/js/modules/calculator.js");
+/* harmony import */ var _modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/photoFilter */ "./src/js/modules/photoFilter.js");
+/* harmony import */ var _modules_changeImg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/changeImg */ "./src/js/modules/changeImg.js");
 
 
  // import mask from "./modules/mask"
+
+
+
 
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -1830,8 +1836,89 @@ window.addEventListener("DOMContentLoaded", () => {
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])(".main-slider-item", "vertical", "", "", 4000);
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])();
-  Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_3__["default"])(".button-styles", "#styles .row"); // mask("[name = 'phone']");
+  Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_3__["default"])(".button-styles", "#styles .row");
+  Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_4__["default"])("#size", "#material", "#options", ".promocode", ".calc-price", " .calc_form");
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".lovers", ".lovers");
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".chef", ".chef");
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".girl", ".girl");
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".guy", ".guy");
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".grandmother", ".portfolio-no");
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".granddad", ".portfolio-no ");
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".all", ".all");
+  Object(_modules_changeImg__WEBPACK_IMPORTED_MODULE_6__["default"])();
+  console.log(1); // mask("[name = 'phone']"); 
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/calculator.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/calculator.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_services_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/services/requests */ "./src/js/modules/services/requests.js");
+
+
+const calculator = (size, material, options, promocode, result, form) => {
+  const sizeBlock = document.querySelector(size),
+        materialBlock = document.querySelector(material),
+        optionsBlock = document.querySelector(options),
+        promocodeBlock = document.querySelector(promocode),
+        resultBlock = document.querySelector(result),
+        formBlock = document.querySelector(form);
+  let formData = new FormData(formBlock);
+  let sum = 0,
+      per = 0;
+
+  const calcFunction = () => {
+    sum = Math.round((+sizeBlock.value + +optionsBlock.value) * materialBlock.value - per);
+
+    if (sizeBlock.value == "" || materialBlock.value == "") {
+      resultBlock.textContent = "Выберите первые два поля";
+    } else if (promocodeBlock.value === "IWANTPOPART") {
+      resultBlock.textContent = Math.round(sum * 0.7);
+    } else {
+      resultBlock.textContent = sum;
+    }
+
+    Object(_modules_services_requests__WEBPACK_IMPORTED_MODULE_0__["postData"])("../../assets/server.php", formData).then(res => console.log(res));
+  };
+
+  sizeBlock.addEventListener("change", calcFunction);
+  materialBlock.addEventListener("change", calcFunction);
+  optionsBlock.addEventListener("change", calcFunction);
+  promocodeBlock.addEventListener("input", calcFunction);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (calculator);
+
+/***/ }),
+
+/***/ "./src/js/modules/changeImg.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/changeImg.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const changeImg = () => {
+  console.log(1);
+  const blocks = document.querySelectorAll(".sizes-block");
+  console.log(blocks);
+  blocks.addEventListener("click", () => {
+    while (blocks.firstChild) {
+      blocks.removeChild(blocks.firstChild);
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (changeImg);
 
 /***/ }),
 
@@ -2051,7 +2138,7 @@ const modals = () => {
 
   showModalByTime(".popup-consultation", 60000);
   bindModal(".button-design", ".popup-design", ".popup-design .popup-close");
-  bindModal(".button-consultation", ".popup-consultation", ".popup-design .popup-close");
+  bindModal(".button-consultation", ".popup-consultation", ".popup-content .popup-close");
   bindModal(".fixed-gift", ".popup-gift", ".popup-gift .popup-close", true);
   openByScroll(".fixed-gift");
 };
@@ -2108,6 +2195,40 @@ const modals = () => {
 // 	// глобал будет Инпут
 // }
 // export default mask;
+
+/***/ }),
+
+/***/ "./src/js/modules/photoFilter.js":
+/*!***************************************!*\
+  !*** ./src/js/modules/photoFilter.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const photoFilter = (trigger, selector, allPhotoes = ".portfolio-block") => {
+  const btn = document.querySelector(trigger),
+        allPic = document.querySelectorAll(allPhotoes),
+        photoSelector = document.querySelectorAll(selector),
+        allTheButtons = document.querySelectorAll(".portfolio-menu > li");
+  btn.addEventListener("click", () => {
+    allTheButtons.forEach(i => {
+      i.classList.remove("active");
+    });
+    btn.classList.add("active");
+    allPic.forEach(i => {
+      i.style.display = "none";
+      i.classList.add("animated");
+      i.classList.add("fadeIn");
+    });
+    photoSelector.forEach(i => {
+      i.style.display = "flex";
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (photoFilter);
 
 /***/ }),
 

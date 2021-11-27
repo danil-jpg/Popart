@@ -4,7 +4,9 @@ import forms from "./modules/forms";
 // import mask from "./modules/mask"
 import showMoreStyles from "./modules/showMoreStyles"
 import calculator from "./modules/calculator";
-import photoFilter from "./modules/photoFilter"
+import photoFilter from "./modules/photoFilter";
+import changeImg from "./modules/changeImg";
+
 
 window.addEventListener("DOMContentLoaded" , () =>{
     "use strict";
@@ -14,12 +16,8 @@ window.addEventListener("DOMContentLoaded" , () =>{
     forms();
     showMoreStyles(".button-styles" , "#styles .row");
     calculator("#size","#material" , "#options", ".promocode" , ".calc-price"," .calc_form");
-    photoFilter(".lovers",".lovers");
-    photoFilter(".chef",".chef");
-    photoFilter(".girl", ".girl");
-    photoFilter(".guy",".guy");
-    photoFilter(".grandmother",".portfolio-no");
-    photoFilter(".granddad" , ".portfolio-no ");
-    photoFilter(".all" , ".all")
-    // mask("[name = 'phone']");
+    photoFilter();
+    changeImg(".sizes-block");
+    // mask("[name = 'phone']"); 
+
 })

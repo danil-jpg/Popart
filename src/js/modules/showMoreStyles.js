@@ -22,7 +22,7 @@ import {getResource} from "../modules/services/requests";
 // export default moreBlocks; - мой вариант реализации
 
 
-const showMoreStyles = (trigger , wrapper) => {
+const showMoreStyles = (trigger , wrapper) => {  
 	const	btn = document.querySelector(trigger);
 
 			// cards.forEach(card => {
