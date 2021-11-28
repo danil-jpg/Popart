@@ -35,6 +35,19 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.display {
+  display: block !important;
+}
+
+.noneDisplay {
+  display: none;
+}
+
+.colorR {
+  color: red;
+}
+
 * {
   box-sizing: border-box;
   outline: none;

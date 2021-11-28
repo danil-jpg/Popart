@@ -6,6 +6,7 @@ import showMoreStyles from "./modules/showMoreStyles"
 import calculator from "./modules/calculator";
 import photoFilter from "./modules/photoFilter";
 import changeImg from "./modules/changeImg";
+import accordion from "./modules/accordion"
 
 
 window.addEventListener("DOMContentLoaded" , () =>{
@@ -18,6 +19,7 @@ window.addEventListener("DOMContentLoaded" , () =>{
     calculator("#size","#material" , "#options", ".promocode" , ".calc-price"," .calc_form");
     photoFilter();
     changeImg(".sizes-block");
+    accordion();
     // mask("[name = 'phone']"); 
 
 })

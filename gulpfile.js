@@ -9,7 +9,7 @@ const dist = "./dist/";
 // const dist = "C:/OpenServer/domains/popart";
 
 gulp.task("copy-html", () => {
-    return gulp.src("./src/index.html") 
+    return gulp.src("./src/index.html")
                 .pipe(gulp.dest(dist))
                 .pipe(browsersync.stream());
 });
@@ -19,11 +19,11 @@ gulp.task("build-js", () => {
                 .pipe(webpack({
                     mode: 'development',
                     output: {
-                        filename: 'script.js' 
+                        filename: 'script.js'
                     },
                     watch: false,
                     devtool: "source-map",
-                    module: { 
+                    module: {
                         rules: [
                           {
                             test: /\.m?js$/,
