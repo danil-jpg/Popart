@@ -1,20 +1,23 @@
 
-const accordion = () => {
-	const	trigger = document.querySelectorAll(".accordion-heading"),
-				text = document.querySelectorAll(".accordion-block");
+const accordion = (triggerSelector , itemSelector) => {
+	const	btns = document.querySelectorAll(triggerSelector),
+				blocks = document.querySelectorAll(itemSelector);
 
-	text.forEach(i => {
-		i.classList.add("noneDisplay");
-	})
+		blocks.forEach(block => {
+			block.classList.add("animated" , "fadeInDown");
+		});
 
-	trigger.forEach((item,index) =>{
-		item.addEventListener("click" , ()=>{
-			item.classList.toggle("colorR") ;
-			text[index].classList.add("animated");
-			text[index].classList.add("fadeIn");
-			text[index].classList.toggle("display");
-		})
-	});
+		btns.forEach(btn => {
+			btn.addEventListener("click" , function() {
+				if(!btn.classList.contains("active")){
+					btns.forEach(btn => {
+						btn.classList.remove("active", "active-style");
+					})
+					this.classList.add("active", "active-style");
+				}
+			});
+		});
 
+		// Проверить замену this на текущий елемент = true
 }
 export default accordion;

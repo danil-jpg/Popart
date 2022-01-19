@@ -1821,9 +1821,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_calculator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/calculator */ "./src/js/modules/calculator.js");
 /* harmony import */ var _modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/photoFilter */ "./src/js/modules/photoFilter.js");
 /* harmony import */ var _modules_changeImg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/changeImg */ "./src/js/modules/changeImg.js");
+/* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
+/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
 
 
  // import mask from "./modules/mask"
+
+
 
 
 
@@ -1838,16 +1842,68 @@ window.addEventListener("DOMContentLoaded", () => {
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])();
   Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_3__["default"])(".button-styles", "#styles .row");
   Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_4__["default"])("#size", "#material", "#options", ".promocode", ".calc-price", " .calc_form");
-  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".lovers", ".lovers");
-  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".chef", ".chef");
-  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".girl", ".girl");
-  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".guy", ".guy");
-  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".grandmother", ".portfolio-no");
-  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".granddad", ".portfolio-no ");
-  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])(".all", ".all");
-  Object(_modules_changeImg__WEBPACK_IMPORTED_MODULE_6__["default"])();
-  console.log(1); // mask("[name = 'phone']"); 
+  Object(_modules_photoFilter__WEBPACK_IMPORTED_MODULE_5__["default"])();
+  Object(_modules_changeImg__WEBPACK_IMPORTED_MODULE_6__["default"])(".sizes-block");
+  Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_7__["default"])(".accordion-heading", ".accordion-block");
+  Object(_modules_burger__WEBPACK_IMPORTED_MODULE_8__["default"])(".burger", ".burger-menu"); // mask("[name = 'phone']"); 
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/accordion.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/accordion.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const accordion = (triggerSelector, itemSelector) => {
+  const btns = document.querySelectorAll(triggerSelector),
+        blocks = document.querySelectorAll(itemSelector);
+  blocks.forEach(block => {
+    block.classList.add("animated", "fadeInDown");
+  });
+  btns.forEach(btn => {
+    btn.addEventListener("click", function () {
+      if (!btn.classList.contains("active")) {
+        btns.forEach(btn => {
+          btn.classList.remove("active", "active-style");
+        });
+        this.classList.add("active", "active-style");
+      }
+    });
+  }); // Проверить замену this на текущий елемент = true
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (accordion);
+
+/***/ }),
+
+/***/ "./src/js/modules/burger.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/burger.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const burger = (burgerSelector, burgerSelectorList) => {
+  const trigger = document.querySelector(burgerSelector),
+        burgerItems = document.querySelector(burgerSelectorList),
+        screenWidth = document.documentElement.scrollWidth;
+  trigger.addEventListener("click", () => {
+    console.log(screenWidth);
+
+    if (screenWidth > 992) {
+      burgerItems.classList.toggle("display");
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (burger);
 
 /***/ }),
 
@@ -1907,14 +1963,25 @@ const calculator = (size, material, options, promocode, result, form) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const changeImg = () => {
-  console.log(1);
-  const blocks = document.querySelectorAll(".sizes-block");
-  console.log(blocks);
-  blocks.addEventListener("click", () => {
-    while (blocks.firstChild) {
-      blocks.removeChild(blocks.firstChild);
-    }
+const changeImg = imgSelector => {
+  const blocks = document.querySelectorAll(imgSelector);
+  blocks.forEach(item => {
+    item.addEventListener("mouseover", () => {
+      const img = item.querySelector("img"); // assets/img/sizes-3.png
+
+      img.src = img.src.slice(0, -4) + "-1.png";
+      item.querySelectorAll("p:not(.sizes-hit)").forEach(i => {
+        i.style.display = "none";
+      });
+    });
+    item.addEventListener("mouseout", () => {
+      const img = item.querySelector("img"); // assets/img/sizes-3-1.png
+
+      img.src = img.src.slice(0, -6) + ".png";
+      item.querySelectorAll("p:not(.sizes-hit)").forEach(i => {
+        i.style.display = "block";
+      });
+    });
   });
 };
 
@@ -2207,25 +2274,35 @@ const modals = () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const photoFilter = (trigger, selector, allPhotoes = ".portfolio-block") => {
-  const btn = document.querySelector(trigger),
-        allPic = document.querySelectorAll(allPhotoes),
-        photoSelector = document.querySelectorAll(selector),
-        allTheButtons = document.querySelectorAll(".portfolio-menu > li");
-  btn.addEventListener("click", () => {
-    allTheButtons.forEach(i => {
-      i.classList.remove("active");
+const photoFilter = () => {
+  const filter = (trigger, selector, allPhotoes = ".portfolio-block") => {
+    const btn = document.querySelector(trigger),
+          allPic = document.querySelectorAll(allPhotoes),
+          photoSelector = document.querySelectorAll(selector),
+          allTheButtons = document.querySelectorAll(".portfolio-menu > li");
+    btn.addEventListener("click", () => {
+      allTheButtons.forEach(i => {
+        i.classList.remove("active");
+      });
+      btn.classList.add("active");
+      allPic.forEach(i => {
+        i.style.display = "none";
+        i.classList.add("animated");
+        i.classList.add("fadeIn");
+      });
+      photoSelector.forEach(i => {
+        i.style.display = "flex";
+      });
     });
-    btn.classList.add("active");
-    allPic.forEach(i => {
-      i.style.display = "none";
-      i.classList.add("animated");
-      i.classList.add("fadeIn");
-    });
-    photoSelector.forEach(i => {
-      i.style.display = "flex";
-    });
-  });
+  };
+
+  filter(".lovers", ".lovers");
+  filter(".chef", ".chef");
+  filter(".girl", ".girl");
+  filter(".guy", ".guy");
+  filter(".grandmother", ".portfolio-no");
+  filter(".granddad", ".portfolio-no ");
+  filter(".all", ".all");
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (photoFilter);

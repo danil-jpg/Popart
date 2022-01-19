@@ -6,7 +6,8 @@ import showMoreStyles from "./modules/showMoreStyles"
 import calculator from "./modules/calculator";
 import photoFilter from "./modules/photoFilter";
 import changeImg from "./modules/changeImg";
-import accordion from "./modules/accordion"
+import accordion from "./modules/accordion";
+import burger from "./modules/burger"
 
 
 window.addEventListener("DOMContentLoaded" , () =>{
@@ -19,7 +20,8 @@ window.addEventListener("DOMContentLoaded" , () =>{
     calculator("#size","#material" , "#options", ".promocode" , ".calc-price"," .calc_form");
     photoFilter();
     changeImg(".sizes-block");
-    accordion();
+    accordion(".accordion-heading" , ".accordion-block");
+    burger(".burger",".burger-menu");
     // mask("[name = 'phone']"); 
 
 })
